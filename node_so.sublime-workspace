@@ -1,0 +1,373 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ng-re",
+				"ng-repeat	AngularJS"
+			],
+			[
+				"ng-cli",
+				"ng-click	AngularJS"
+			],
+			[
+				"ng",
+				"ng-controller	AngularJS"
+			],
+			[
+				"h1",
+				"h1	Tag"
+			],
+			[
+				"bo",
+				"body	Tag"
+			],
+			[
+				"scrip",
+				"script	Tag"
+			],
+			[
+				"he",
+				"head	Tag"
+			],
+			[
+				"module",
+				"angular.module"
+			],
+			[
+				"$root",
+				"$rootScope	AngularJS(DI)"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 31.0,
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: HTML5 Structure"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"sublime lint",
+				"Preferences: SublimeLint – User"
+			],
+			[
+				"pack insta",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"linter",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"githu",
+				"Github: Open File"
+			],
+			[
+				"git",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 588.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/tiagolpadua/Google Drive/UNB/20142/tpp1/TIAGO_PADUA_120142457.TXT",
+		"/Users/tiagolpadua/senha wifi udf.txt",
+		"/Users/tiagolpadua/traducao angularjs style guide",
+		"/Users/tiagolpadua/Google Drive/Lista 4.gdoc",
+		"/Users/tiagolpadua/workspace_js/ngtest/app/index.html",
+		"/Users/tiagolpadua/workspace_js/ngtest/scripts/test.js",
+		"/Users/tiagolpadua/temp/acc2/acc-ui-web/.jshintrc",
+		"/Users/tiagolpadua/kdi_24072014/kdi/workspace_acc_gt_bpt_pm2/tst-ui-web/Readme.md",
+		"/Users/tiagolpadua/workspace_js/angular_test/app/scripts/controllers/teste.html",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/node_modules/karma-chrome-launcher/package.json",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/node_modules/karma-coffee-preprocessor/README.md",
+		"/Users/tiagolpadua/workspace_js/angular_test/app/scripts/controllers/main.js",
+		"/Users/tiagolpadua/workspace_js/angular_test/app/scripts/app.js",
+		"/Users/tiagolpadua/workspace_js/angular_test/.jshintrc",
+		"/Users/tiagolpadua/workspace_js/angular_test/app/scripts/controllers/about.js",
+		"/Users/tiagolpadua/Library/Application Support/Sublime Text 2/Packages/User/doctype.sublime-snippet",
+		"/Users/tiagolpadua/Library/Application Support/Sublime Text 2/Packages/User/SublimeLint.sublime-settings",
+		"/Users/tiagolpadua/workspace_js/angular_test/angular_test.sublime-project",
+		"/Users/tiagolpadua/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/tiagolpadua/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/tiagolpadua/workspace_js/angular_test/Gruntfile.js",
+		"/Users/tiagolpadua/workspace_js/angular_test/npm-debug.log",
+		"/Users/tiagolpadua/teste.xml",
+		"/Users/tiagolpadua/workspace_js/angular_test/node_modules/karma/node_modules/chokidar/test.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/.jshintrc",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/.bowerrc",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/bower.json",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/main/webapp/app/config-app.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/test/javascript/unit/sos/sosDirectivesSpec.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/main/webapp/app/sos/sos-constants.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/main/webapp/app/sos/sos-directives.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/test/javascript/unit/sos/sosControllersSpec.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/test/javascript/unit/sos/sosServicesSpec.js",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/package.json",
+		"/Users/tiagolpadua/workspace_js/acc-ui-web/src/main/webapp/app/components/tst/tst.app.html",
+		"/Users/tiagolpadua/configuracoes ambiente javascript.tst",
+		"/Users/tiagolpadua/git/angular-js-presentation/index.html",
+		"/Users/tiagolpadua/git/angular-js-bb/examples/ex1.html",
+		"/Users/tiagolpadua/git/angular-js-bb/README.txt",
+		"/Users/tiagolpadua/git/angular-js-bb/package.json",
+		"/Users/tiagolpadua/git/smaspy/execution/results/POMO4_09-06-2014_18-28-54_signals.dat",
+		"/Users/tiagolpadua/Downloads/salva.php",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run_SANB11.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run_GETI4.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run_POMO4.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run_ELPL4.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/results/ELPL4_06-06-2014_18-06-16_estudo.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/results/.~lock.ALL_06-06-2014_11-00-34_estudo.dat#",
+		"/Users/tiagolpadua/git/smaspy/execution/results/ELPL4_06-06-2014_18-06-16.gpl",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/results/ALL_06-06-2014_11-00-34_estudo.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/config/dates.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run_ALL.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/smas_run_GOAU4.cfg",
+		"/Users/tiagolpadua/git/smaspy/src/smas/smasm.py",
+		"/Users/tiagolpadua/git/smaspy/execution/results/GOAU4_06-06-2014_11-08-41_plot_u4m.gpl",
+		"/Users/tiagolpadua/git/smaspy/execution/results/GOAU4_06-06-2014_11-08-41_plot_u4m.png",
+		"/Users/tiagolpadua/git/smaspy/execution/config/config.cfg",
+		"/Users/tiagolpadua/git/smaspy/execution/data/LLXL3.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/config/symbols.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/results/ALL_06-06-2014_10-04-35_estudo.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/config/symbols.dat.bak.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/results/.~lock.ALL_06-06-2014_10-04-35_estudo.dat#",
+		"/Users/tiagolpadua/git/smaspy/execution/data/GGBR4.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/data/ALLL3.dat",
+		"/Users/tiagolpadua/git/smaspy/execution/config/AAAA.ods",
+		"/Users/tiagolpadua/Google Drive/UNB/20141/bd/sessao.sql",
+		"/Users/tiagolpadua/Google Drive/UNB/20141/tc/2e3lista.txt",
+		"/Users/tiagolpadua/workspace_jee_kepler_SR2/bb-ui-web/src/main/webapp/app/components/mcjt/mcjt.app.html",
+		"/Library/Preferences/com.apple.BezelServices.plist",
+		"/Users/tiagolpadua/temp/RESTfulExample/pom.xml",
+		"/Users/tiagolpadua/eclipse/configuration/config.ini",
+		"/Users/tiagolpadua/workspace_jee_kepler_SR2/bb-ui-web/node_modules/grunt/lib/grunt.js",
+		"/Users/tiagolpadua/workspace_jee_kepler_SR2/Servers/.settings/org.eclipse.wst.server.core.prefs",
+		"/Users/tiagolpadua/git/ngBookStore/gruntfile.js",
+		"/Users/tiagolpadua/workspace_jee_kepler_SR2/Servers/.project",
+		"/Users/tiagolpadua/Library/Application Support/Sublime Text 2/Packages/SublimeLinter/Default (OSX).sublime-keymap",
+		"/Users/tiagolpadua/git/ngBookStore/.bower-cache/fe2fe255e91d251051d543998aa8327a/2.1.0/src/wrap.js",
+		"/Users/tiagolpadua/git/ngBookStore/.slugignore",
+		"/Users/tiagolpadua/git/ngBookStore/.jshintrc",
+		"/Users/tiagolpadua/git/ngBookStore/.travis.yml",
+		"/Users/tiagolpadua/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/tiagolpadua/git/ngBookStore/.jshintignore",
+		"/Volumes/32GB PEN/teste/flsajflasjflasjdfkj"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/Users/tiagolpadua/workspace_js/acc-ui-web/",
+			"/Users/tiagolpadua/workspace_js/acc-ui-web/src/main/webapp/app",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"name",
+			"sonearc",
+			"today",
+			"TODAY",
+			"\"",
+			"method",
+			"    \n",
+			"jabber",
+			"debugger",
+			"updateLocalStorage",
+			"();\n",
+			"\n       ",
+			"= ",
+			"        \n",
+			"karma",
+			"require",
+			"watch",
+			"$on",
+			"on",
+			"\"></script>",
+			"<script src=\"/acc/APPS/",
+			"bibs",
+			"bibprod",
+			"debugger",
+			"	\n",
+			"opener",
+			";\n",
+			"            \n",
+			"_u4m",
+			"u4m",
+			" == ",
+			"len(",
+			".size",
+			".len",
+			"analise_moving_average",
+			"ind_q",
+			"indq",
+			"load_symbols",
+			"papers",
+			"útil",
+			"/ng/",
+			"theme",
+			"o"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"",
+			"/app/"
+		],
+		"reverse": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 98.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"test",
+				"node_modules/karma/node_modules/chokidar/test.js"
+			],
+			[
+				"sos-con",
+				"src/main/webapp/app/sos/sos-controllers.js"
+			],
+			[
+				".js",
+				".bower-cache/fe2fe255e91d251051d543998aa8327a/2.1.0/src/wrap.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 292.0,
+	"status_bar_visible": true
+}
