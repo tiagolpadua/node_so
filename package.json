@@ -4,7 +4,11 @@
   "description": "Trabalho de Noções de Sistemas Operacionasi - PseudoSO",
   "main": "./main",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js",
+    "test":  "node tests.js"
   },
-  "author": "Tiago Lage Payne de Pádua"
+  "author": "Tiago Lage Payne de Pádua",
+  "dependencies": {
+    "sget": "^0.1.5"
+  }
 }
