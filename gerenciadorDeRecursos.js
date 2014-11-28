@@ -5,8 +5,9 @@
  */
 var exports = module.exports;
 
-exports.criarGerenciadorDeRecursos = criarGerenciadorDeRecursos;
-function criarGerenciadorDeRecursos(mapaRecursos) {
+exports.GerenciadorDeRecursos = GerenciadorDeRecursos;
+
+function GerenciadorDeRecursos(mapaRecursos) {
     var gerenciadorDeRecursos = {};
 
     gerenciadorDeRecursos.isRecursoDisponivel = function (nomeRecurso, codigoRecurso) {
