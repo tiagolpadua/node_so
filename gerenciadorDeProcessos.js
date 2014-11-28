@@ -5,6 +5,9 @@ var sget = require('sget');
 var ct = require('./constants.js');
 var prettyjson = require('prettyjson');
 
+var gr = require('./gerenciadorDeRecursos.js');
+var gm = require('./gerenciadorDeMemoria.js');
+
 /**
  * Module exports.
  */
@@ -16,6 +19,19 @@ function GerenciadorDeProcessos (processesFileName) {
     var lp = readProcessesFile(processesFileName);
 
     var gerenciadorDeProcessos = {};
+
+    var mapaRecursos = {
+            scanner1:  '',
+            impressora1: '',
+            impressora2: '',
+            modem1: '',
+            disco1: '',
+            disco2: ''
+        };
+
+    var gerenciadorDeRecursos = gr.GerenciadorDeRecursos(mapaRecursos);
+
+    var gerenciadorDeMemoria = gr.GerenciadorDeMemoria();
 
     function line() {
         console.log('-----------------------------------------------');
@@ -82,8 +98,44 @@ function GerenciadorDeProcessos (processesFileName) {
 
                             console.log('Recursos alocados, processo será iniciado');
                             
+                            for(var j = 0; j < listaProcessosProntos.length && !processoExecutando; j++) {
+                                var todosRecursosDisponiveis = true;
+                                if(listaProcessosProntos[j].impressora > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['impressora' + listaProcessosProntos[j].impressora]) {
+                                    todosRecursosDisponiveis = false;
+                                }
 
-                            processoExecutando = listaProcessosProntos[0];
+                                if(listaProcessosProntos[j].scanner > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['scanner' + listaProcessosProntos[j].scanner]) {
+                                    todosRecursosDisponiveis = false;
+                                }
+
+                                if(listaProcessosProntos[j].modem > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['modem' + listaProcessosProntos[j].modem]) {
+                                    todosRecursosDisponiveis = false;
+                                }
+
+                                if(listaProcessosProntos[j].disco > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['disco' + listaProcessosProntos[j].disco]) {
+                                    todosRecursosDisponiveis = false;
+                                }
+
+                                if(todosRecursosDisponiveis) {
+                                    processoExecutando = listaProcessosProntos[0];
+                                    if(listaProcessosProntos[j].impressora > 0) {
+                                        gerenciadorDeRecursos.alocarRecurso('impressora' + listaProcessosProntos[j].impressora, processoExecutando.pid);
+                                    }
+
+                                    if(listaProcessosProntos[j].scanner > 0) {
+                                        gerenciadorDeRecursos.alocarRecurso('scanner' + listaProcessosProntos[j].scanner, processoExecutando.pid);
+                                    }
+
+                                    if(listaProcessosProntos[j].modem > 0) {
+                                        gerenciadorDeRecursos.alocarRecurso('modem' + listaProcessosProntos[j].modem, processoExecutando.pid);
+                                    }
+
+                                    if(listaProcessosProntos[j].disco > 0) {
+                                        gerenciadorDeRecursos.alocarRecurso('disco' + listaProcessosProntos[j].disco, processoExecutando.pid);
+                                    }
+
+                                }
+                            }
 
                             //FIXME: Antes de executar deve alocar a memória
                             processoExecutando.status = ct.STATUS.EXECUTANDO;

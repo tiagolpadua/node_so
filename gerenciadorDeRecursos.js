@@ -10,24 +10,24 @@ exports.GerenciadorDeRecursos = GerenciadorDeRecursos;
 function GerenciadorDeRecursos(mapaRecursos) {
     var gerenciadorDeRecursos = {};
 
-    gerenciadorDeRecursos.isRecursoDisponivel = function (nomeRecurso, codigoRecurso) {
-        return mapaRecursos[nomeRecurso][codigoRecurso].processo === '';
+    gerenciadorDeRecursos.isRecursoDisponivel = function (codigoRecurso) {
+        return mapaRecursos[codigoRecurso] === '';
     };
 
-    gerenciadorDeRecursos.alocarRecurso = function (nomeRecurso, codigoRecurso, processo) {
-        if(mapaRecursos[nomeRecurso][codigoRecurso].processo !== '') {
-            throw 'Recurso ' + nomeRecurso + ' ' + codigoRecurso + ' já alocado para ' + mapaRecursos[nomeRecurso][codigoRecurso].processo;
+    gerenciadorDeRecursos.alocarRecurso = function (codigoRecurso, processo) {
+        if(mapaRecursos[codigoRecurso] !== '') {
+            throw 'Recurso: ' + codigoRecurso + ' já alocado para ' + mapaRecursos[codigoRecurso];
         }
-        mapaRecursos[nomeRecurso][codigoRecurso].processo = processo;
+        mapaRecursos[codigoRecurso] = processo;
 
         return true;
     };
 
-    gerenciadorDeRecursos.desalocarRecurso = function (nomeRecurso, codigoRecurso) {
-        if(mapaRecursos[nomeRecurso][codigoRecurso].processo === '') {
-            throw 'Recurso ' + nomeRecurso + ' ' + codigoRecurso + ' não está alocado';
+    gerenciadorDeRecursos.desalocarRecurso = function (codigoRecurso) {
+        if(mapaRecursos[codigoRecurso] === '') {
+            throw 'Recurso: ' + codigoRecurso + ' não está alocado';
         }
-        mapaRecursos[nomeRecurso][codigoRecurso].processo = '';
+        mapaRecursos[codigoRecurso] = '';
 
         return true;
     };
