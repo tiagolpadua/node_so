@@ -32,5 +32,15 @@ function GerenciadorDeRecursos(mapaRecursos) {
         return true;
     };
 
+    gerenciadorDeRecursos.desalocarRecursoDoProcesso = function (codigoProcesso) {
+        for (var recurso in mapaRecursos) {
+            if (mapaRecursos.hasOwnProperty(recurso)) {
+                if(mapaRecursos[recurso] === codigoProcesso) {
+                    mapaRecursos[recurso] = '';
+                }
+            }
+        }
+    };
+
     return gerenciadorDeRecursos;
 }

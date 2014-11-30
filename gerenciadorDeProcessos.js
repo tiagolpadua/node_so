@@ -31,7 +31,7 @@ function GerenciadorDeProcessos (processesFileName) {
 
     var gerenciadorDeRecursos = gr.GerenciadorDeRecursos(mapaRecursos);
 
-    var gerenciadorDeMemoria = gr.GerenciadorDeMemoria();
+    var gerenciadorDeMemoria = gm.GerenciadorDeMemoria();
 
     function line() {
         console.log('-----------------------------------------------');
@@ -86,18 +86,6 @@ function GerenciadorDeProcessos (processesFileName) {
                         try {
 
                             console.log('Verificando a disponibilidade dos recursos');
-                            /*
-                            recursos.forEach(function (recurso) {
-                                if(listaProcessosProntos[0][recurso] > 0 && gerenciadorDeRecursos.isRecursoDisponivel(recurso, listaProcessosProntos[0][recurso] - 1)) {
-                                    gerenciadorDeRecursos.alocarRecurso(recurso, listaProcessosProntos[0][recurso] - 1, listaProcessosProntos[0].pid);
-                                } else {
-                                    throw  recurso + ' indisponível: ' + listaProcessosProntos[0][recurso];
-                                }
-                            });
-                            */
-
-                            console.log('Recursos alocados, processo será iniciado');
-                            
                             for(var j = 0; j < listaProcessosProntos.length && !processoExecutando; j++) {
                                 var todosRecursosDisponiveis = true;
                                 if(listaProcessosProntos[j].impressora > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['impressora' + listaProcessosProntos[j].impressora]) {
@@ -117,6 +105,7 @@ function GerenciadorDeProcessos (processesFileName) {
                                 }
 
                                 if(todosRecursosDisponiveis) {
+                                    console.log('Recursos alocados, processo será iniciado');
                                     processoExecutando = listaProcessosProntos[0];
                                     if(listaProcessosProntos[j].impressora > 0) {
                                         gerenciadorDeRecursos.alocarRecurso('impressora' + listaProcessosProntos[j].impressora, processoExecutando.pid);
@@ -189,8 +178,7 @@ function GerenciadorDeProcessos (processesFileName) {
                         return processo.pid !== processoExecutando.pid;
                     });
 
-                    //FIXME: Liberar recursos
-                    //FIXME: Liberar memória
+                    gerenciadorDeRecursos.desalocarRecursoDoProcesso(processo.pid);
                     processoExecutando = undefined;
                 }
 
@@ -214,7 +202,6 @@ function GerenciadorDeProcessos (processesFileName) {
     return gerenciadorDeProcessos;
 }
 
-//TODO: testar
 /*
  * Verifica se existe algum processo com tempo de inicialização igual a 0 e torna-o pronto;
  */
@@ -229,7 +216,6 @@ function tornaProntosProcessosQueChegaram(listaProcessos) {
     });
 }
 
-//TODO: testar
 exports._getNextFreePid = getNextFreePid;
 function getNextFreePid(listaProcessos) {
     var nextFreePid = 0;
