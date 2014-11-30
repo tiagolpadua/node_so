@@ -31,7 +31,7 @@ function GerenciadorDeProcessos (processesFileName) {
 
     var gerenciadorDeRecursos = gr.GerenciadorDeRecursos(mapaRecursos);
 
-    var gerenciadorDeMemoria = gr.GerenciadorDeMemoria();
+    var gerenciadorDeMemoria = gm.GerenciadorDeMemoria();
 
     function line() {
         console.log('-----------------------------------------------');
