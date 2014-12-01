@@ -33,12 +33,16 @@ function GerenciadorDeMemoria() {
         }
     };
 
-    gerenciadorDeMemoria.desalocar = function (processo) {
+    gerenciadorDeMemoria.desalocar = function (pid) {
         for(var i = 0; i < paginas.length; i++) {
-            if(paginas[i] === processo) {
+            if(paginas[i] === pid) {
                 paginas[i] = -1;
             }
         }
+    };
+
+    gerenciadorDeMemoria.obterVetorMemoria = function () {
+        return paginas;
     };
 
     return gerenciadorDeMemoria;

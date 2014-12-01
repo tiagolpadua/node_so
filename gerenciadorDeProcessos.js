@@ -56,6 +56,7 @@ function GerenciadorDeProcessos (processesFileName) {
             console.log('Ciclo: ' + ciclo);    
             console.log('Lista de processos:\n' + prettyjson.render(lp));
             console.log('Mapa de recursos:\n' + prettyjson.render(mapaRecursos));
+            console.log('Mapa de memória:\n' + prettyjson.render(gerenciadorDeMemoria.obterVetorMemoria()));
 
             tornaProntosProcessosQueChegaram(lp, filaProcessos);
 
@@ -182,6 +183,7 @@ function GerenciadorDeProcessos (processesFileName) {
                     });
 
                     gerenciadorDeRecursos.desalocarRecursoDoProcesso(processoExecutando.pid);
+                    gerenciadorDeMemoria.desalocar(processoExecutando.pid);
                     processoExecutando = undefined;
                 }
 
@@ -212,7 +214,11 @@ function GerenciadorDeProcessos (processesFileName) {
             sget().charCodeAt(0);
 
             ciclo += 1;
+
+            console.log('############################################');
         }
+        console.log('Não há mais processos a serem executados, sistema finalizado com sucesso');
+
     };
 
     return gerenciadorDeProcessos;
