@@ -7,7 +7,6 @@
     "start": "nodejs main.js",
     "test": "nodejs tests.js"
   },
-  "author": "Tiago Lage Payne de Pádua",
   "dependencies": {
     "sget": "^0.1.5",
     "prettyjson": "~1.0.0"
