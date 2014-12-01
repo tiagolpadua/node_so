@@ -11,23 +11,19 @@ function GerenciadorDeRecursos(mapaRecursos) {
     var gerenciadorDeRecursos = {};
 
     gerenciadorDeRecursos.isRecursoDisponivel = function (codigoRecurso) {
-        return mapaRecursos[codigoRecurso] === '';
+        var ret = mapaRecursos[codigoRecurso] === '';
+        if(!ret) {
+            console.log('Recurso ' +  codigoRecurso + ' não está disponível');
+        }
+        return ret;
     };
 
     gerenciadorDeRecursos.alocarRecurso = function (codigoRecurso, processo) {
+        console.log('Alocando recurso: ' + codigoRecurso + ' para processo.pid = ' + processo);
         if(mapaRecursos[codigoRecurso] !== '') {
             throw 'Recurso: ' + codigoRecurso + ' já alocado para ' + mapaRecursos[codigoRecurso];
         }
         mapaRecursos[codigoRecurso] = processo;
-
-        return true;
-    };
-
-    gerenciadorDeRecursos.desalocarRecurso = function (codigoRecurso) {
-        if(mapaRecursos[codigoRecurso] === '') {
-            throw 'Recurso: ' + codigoRecurso + ' não está alocado';
-        }
-        mapaRecursos[codigoRecurso] = '';
 
         return true;
     };

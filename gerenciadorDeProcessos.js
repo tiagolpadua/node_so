@@ -38,23 +38,32 @@ function GerenciadorDeProcessos (processesFileName) {
     }
 
     gerenciadorDeProcessos.dispatcher = function () {
-        var ciclo = 0, processoExecutando, listaProcessosProntos, filaProcessos = {};
+        var ciclo = 0, processoExecutando, listaProcessosProntos;
+
+        var filaProcessos = {
+            filaTempoReal: [],
+            filaUsuario: {
+                prioridade1: [],
+                prioridade2: [],
+                prioridade3: []
+            }
+        };
 
         //Enquanto houverem processos a serem executados...
         while(lp.length > 0) {
             line();
 
             console.log('Ciclo: ' + ciclo);    
-            console.log('Lista de processos: ' + prettyjson.render(lp));
+            console.log('Lista de processos:\n' + prettyjson.render(lp));
+            console.log('Mapa de recursos:\n' + prettyjson.render(mapaRecursos));
 
-            tornaProntosProcessosQueChegaram(lp);
+            tornaProntosProcessosQueChegaram(lp, filaProcessos);
 
-            alocarProcessosEmFilas(getProcessoPorStatus(lp, ct.STATUS.PRONTO), filaProcessos);
             line();
-            console.log('Fila de processos prontos: ' + prettyjson.render(filaProcessos));
+            console.log('Fila de processos prontos:\n' + prettyjson.render(filaProcessos));
 
             /*
-             * Caso não existem processos executando, tenta recuperar um processo na lista de processos
+             * Caso não existam processos executando, tenta recuperar um processo na lista de processos
              * prontos.
              */
             if (!processoExecutando) {
@@ -63,89 +72,83 @@ function GerenciadorDeProcessos (processesFileName) {
                 /*
                  * Tenta obter uma lista de processos prontos observando a prioridade de cada um
                  */
-                listaProcessosProntos = getProcessoPorStatus(filaProcessos.filaTempoReal, ct.STATUS.PRONTO);
+                listaProcessosProntos = getProcessoProntosOuBloqueados(filaProcessos.filaTempoReal);
 
                 if(listaProcessosProntos.length === 0) {
                     console.log('Não há processos prontos de tempo real, buscando em prioridade 1');
-                    listaProcessosProntos = getProcessoPorStatus(filaProcessos.filaUsuario.prioridade1, ct.STATUS.PRONTO);
+                    listaProcessosProntos = getProcessoProntosOuBloqueados(filaProcessos.filaUsuario.prioridade1);
                 }
 
                 if(listaProcessosProntos.length === 0) {
                     console.log('Não há processos prontos com prioridade 1, buscando em prioridade 2');
-                    listaProcessosProntos = getProcessoPorStatus(filaProcessos.filaUsuario.prioridade2, ct.STATUS.PRONTO);
+                    listaProcessosProntos = getProcessoProntosOuBloqueados(filaProcessos.filaUsuario.prioridade2);
                 }
 
                 if(listaProcessosProntos.length === 0) {
                     console.log('Não há processos prontos com prioridade 2, buscando em prioridade 3');
-                    listaProcessosProntos = getProcessoPorStatus(filaProcessos.filaUsuario.prioridade3, ct.STATUS.PRONTO);
+                    listaProcessosProntos = getProcessoProntosOuBloqueados(filaProcessos.filaUsuario.prioridade3);
                 }
 
                 if (listaProcessosProntos.length > 0) {
+
+                    //Coloca os processos mais velhos na frente da fila
+                    listaProcessosProntos = listaProcessosProntos.sort(function(a,b){
+                        return a.idade < b.idade;
+                    });
+
                     console.log('Fila com processos prontos encontrada!');
+                    //Percorre a lista de processos prontos até o momento que haja um processo executando
                     for (var i = 0; i < listaProcessosProntos.length && !processoExecutando; i++) {
-                        try {
 
-                            console.log('Verificando a disponibilidade dos recursos');
-                            for(var j = 0; j < listaProcessosProntos.length && !processoExecutando; j++) {
-                                var todosRecursosDisponiveis = true;
-                                if(listaProcessosProntos[j].impressora > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['impressora' + listaProcessosProntos[j].impressora]) {
+                        console.log('Verificando a disponibilidade dos recursos');
+                        if(!listaProcessosProntos[i].recursosAlocados) {
+                            console.log('Alocando recursos para processo: ' + listaProcessosProntos[i].pid);
+                            var todosRecursosDisponiveis = true;
+                            ['impressora', 'scanner', 'modem', 'disco'].forEach(function (recurso){
+                                if(listaProcessosProntos[i][recurso] > 0 && !gerenciadorDeRecursos.isRecursoDisponivel(recurso + listaProcessosProntos[i][recurso])) {
+                                    console.log('Recurso ' + recurso + ' não disponível para ' + listaProcessosProntos[i].pid);
                                     todosRecursosDisponiveis = false;
                                 }
+                            });
 
-                                if(listaProcessosProntos[j].scanner > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['scanner' + listaProcessosProntos[j].scanner]) {
-                                    todosRecursosDisponiveis = false;
-                                }
-
-                                if(listaProcessosProntos[j].modem > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['modem' + listaProcessosProntos[j].modem]) {
-                                    todosRecursosDisponiveis = false;
-                                }
-
-                                if(listaProcessosProntos[j].disco > 0 && !gerenciadorDeRecursos.isRecursoDisponivel['disco' + listaProcessosProntos[j].disco]) {
-                                    todosRecursosDisponiveis = false;
-                                }
-
-                                if(todosRecursosDisponiveis) {
-                                    console.log('Recursos alocados, processo será iniciado');
-                                    processoExecutando = listaProcessosProntos[0];
-                                    if(listaProcessosProntos[j].impressora > 0) {
-                                        gerenciadorDeRecursos.alocarRecurso('impressora' + listaProcessosProntos[j].impressora, processoExecutando.pid);
-                                    }
-
-                                    if(listaProcessosProntos[j].scanner > 0) {
-                                        gerenciadorDeRecursos.alocarRecurso('scanner' + listaProcessosProntos[j].scanner, processoExecutando.pid);
-                                    }
-
-                                    if(listaProcessosProntos[j].modem > 0) {
-                                        gerenciadorDeRecursos.alocarRecurso('modem' + listaProcessosProntos[j].modem, processoExecutando.pid);
-                                    }
-
-                                    if(listaProcessosProntos[j].disco > 0) {
-                                        gerenciadorDeRecursos.alocarRecurso('disco' + listaProcessosProntos[j].disco, processoExecutando.pid);
-                                    }
-
-                                }
+                            if(todosRecursosDisponiveis) {
+                                ['impressora', 'scanner', 'modem', 'disco'].forEach(function (recurso){
+                                    if(listaProcessosProntos[i][recurso] > 0) {
+                                        gerenciadorDeRecursos.alocarRecurso(recurso + listaProcessosProntos[i][recurso], listaProcessosProntos[i].pid);
+                                    }    
+                                });
+                                listaProcessosProntos[i].recursosAlocados = true;
+                                console.log('Recursos alocados para processo: ' + listaProcessosProntos[i].pid);
                             }
+                        }
 
-                            //FIXME: Antes de executar deve alocar a memória
+                        if(!listaProcessosProntos[i].memoriaAlocada) {
+                            console.log('Alocando memória para processo: ' + listaProcessosProntos[i].pid);
+                            if(gerenciadorDeMemoria.alocar(listaProcessosProntos[i])) {
+                                console.log('Memória alocada para processo: ' + listaProcessosProntos[i].pid);
+                                listaProcessosProntos[i].memoriaAlocada = true;
+                            }
+                        }
+
+                        if(listaProcessosProntos[i].memoriaAlocada && listaProcessosProntos[i].recursosAlocados) {
+                            processoExecutando = listaProcessosProntos[i];
                             processoExecutando.status = ct.STATUS.EXECUTANDO;
                             console.log('dispatcher =>');
                             console.log('\tPID: ' + processoExecutando.pid);
-                            console.log('\tpages: ' + '?');
-                            console.log('\tframes: ' + '?');
+                            console.log('\tidade: ' + processoExecutando.idade);
+                            console.log('\tpages: ' + Math.ceil(processoExecutando.blocosEmMemoria / 64));
+                            console.log('\tframes: ' + '-');
                             console.log('\tpriority: ' + processoExecutando.prioridade);
                             console.log('\ttime: ' + processoExecutando.tempoProcessador);
-                            console.log('\tprinters: ' + '?');
-                            console.log('\tscanners: ' + '?');
-                            console.log('\tmodems: ' + '?');
-                            console.log('\tdrives: ' + '?');
+                            console.log('\tprinters: ' + processoExecutando.impressora);
+                            console.log('\tscanners: ' + processoExecutando.scanner);
+                            console.log('\tmodems: ' + processoExecutando.modem);
+                            console.log('\tdrives: ' + processoExecutando.disco);
 
                             console.log('');
 
                             console.log('process ' + processoExecutando.pid + ' ==>');
                             console.log('P' + processoExecutando.pid + ' STARTED');
-
-                        } catch (err) {
-                            console.log(err);
                         }
                     }
                 } else {
@@ -178,11 +181,24 @@ function GerenciadorDeProcessos (processesFileName) {
                         return processo.pid !== processoExecutando.pid;
                     });
 
-                    gerenciadorDeRecursos.desalocarRecursoDoProcesso(processo.pid);
+                    gerenciadorDeRecursos.desalocarRecursoDoProcesso(processoExecutando.pid);
                     processoExecutando = undefined;
                 }
 
+                //Envelhece todos os processos que não estão executando se estiverem bloqueados ou prontos
+                lp.map(function (processo) {
+                    if(!processoExecutando || (processo.pid !== processoExecutando.pid)) {
+                        if(processo.status === ct.STATUS.BLOQUEADO || processo.status === ct.STATUS.PRONTO) {
+                            processo.idade += 1;
+                        }
+                    }
+                });
 
+                //Como o quantum é 1, bloqueia o processo para que outro seja executado caso não seja um processo de tempo real
+                if(processoExecutando && processoExecutando.prioridade !== 0) {
+                    processoExecutando.status = ct.STATUS.BLOQUEADO;
+                    processoExecutando = undefined;
+                }
             }
 
             console.log('Reduzindo tempo de espera para processos que não inicializaram');
@@ -206,11 +222,12 @@ function GerenciadorDeProcessos (processesFileName) {
  * Verifica se existe algum processo com tempo de inicialização igual a 0 e torna-o pronto;
  */
 exports._tornaProntosProcessosQueChegaram = tornaProntosProcessosQueChegaram;
-function tornaProntosProcessosQueChegaram(listaProcessos) {
+function tornaProntosProcessosQueChegaram(listaProcessos, filaProcessos) {
     listaProcessos.forEach(function(processo) {
         if(processo.status === ct.STATUS.ESPERANDO && processo.tempoInicializacao === 0) {
             processo.status = ct.STATUS.PRONTO;
             processo.pid = getNextFreePid(listaProcessos);
+            alocarProcessoEmFilas(processo, filaProcessos);
             console.log('Processo ' + processo.pid + ' pronto!');
         }
     });
@@ -247,8 +264,9 @@ function readProcessesFile (processesFileName) {
             scanner:            parseInt(line.split(',')[5], 10),
             modem:              parseInt(line.split(',')[6], 10),
             disco:              parseInt(line.split(',')[7], 10),
+            idade:              0,
             instrucao:          0,
-            status:             ct.STATUS.ESPERANDO
+            status:             ct.STATUS.ESPERANDO,
         };
     });
 }
@@ -258,6 +276,11 @@ function getProcessoPorStatus(listaProcessos, status) {
     return listaProcessos.filter(function (processo) {
         return processo.status === status;
     });
+}
+
+exports._getProcessoProntosOuBloqueados = getProcessoProntosOuBloqueados;
+function getProcessoProntosOuBloqueados(listaProcessos) {
+    return getProcessoPorStatus(listaProcessos, ct.STATUS.PRONTO).concat(getProcessoPorStatus(listaProcessos, ct.STATUS.BLOQUEADO));
 }
 
 exports._isPossuiProcessosExecutando = isPossuiProcessosExecutando;
@@ -272,26 +295,26 @@ function removerProcessosConcluidos(listaProcessos) {
     });
 }
 
-exports._alocarProcessosEmFilas = alocarProcessosEmFilas;
-function alocarProcessosEmFilas(listaProcessos, fila) {
-    fila.filaTempoReal = (fila.filaTempoReal || [])
-        .concat( listaProcessos.filter(function(processo) {
-            return processo.prioridade === 0;
-        })) ;
+exports._alocarProcessoEmFilas = alocarProcessoEmFilas;
+function alocarProcessoEmFilas(processo, fila) {
+    switch(processo.prioridade) {
+    case 0:
+        fila.filaTempoReal.push(processo);
+        break;
 
-    fila.filaUsuario = fila.filaUsuario || {};
-    fila.filaUsuario.prioridade1 = (fila.filaUsuario.prioridade1 || [])
-        .concat(listaProcessos.filter(function(processo) {
-            return processo.prioridade === 1;
-        }));
+    case 1:
+        fila.filaUsuario.prioridade1.push(processo);
+        break;
 
-    fila.filaUsuario.prioridade2 = (fila.filaUsuario.prioridade2 || [])
-    .concat(listaProcessos.filter(function(processo) {
-        return processo.prioridade === 2;
-    }));
+    case 2:
+        fila.filaUsuario.prioridade2.push(processo);
+        break;
 
-    fila.filaUsuario.prioridade3 = (fila.filaUsuario.prioridade3 || [])
-        .concat(listaProcessos.filter(function(processo) {
-        return processo.prioridade === 3;
-    }));
+    case 3:
+        fila.filaUsuario.prioridade3.push(processo);
+        break;
+
+    default:
+        throw 'Prioridade inválida: ' + processo.prioridade;
+    }
 }
