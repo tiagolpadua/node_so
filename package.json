@@ -4,11 +4,12 @@
   "description": "Trabalho de Noções de Sistemas Operacionasi - PseudoSO",
   "main": "./main",
   "scripts": {
-    "start": "node main.js",
-    "test":  "node tests.js"
+    "start": "nodejs main.js",
+    "test": "nodejs tests.js"
   },
   "author": "Tiago Lage Payne de Pádua",
   "dependencies": {
-    "sget": "^0.1.5"
+    "sget": "^0.1.5",
+    "prettyjson": "~1.0.0"
   }
 }
